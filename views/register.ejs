@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+
+  <body>
+    <script>
+      function submit() {
+        const user = {
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value,
+        };
+        fetch('http://localhost:3000/users/register', {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+          body: JSON.stringify(user),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+    </script>
+    <div id="info"></div>
+    <h1>Register user</h1>
+
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" />
+    <label for="password">password</label>
+    <input type="text" name="password" id="password" />
+    <button onclick="submit()">submit</button>
+    <div>
+      <a href="/">Etusivu</a>
+    </div>
+  </body>
+</html>

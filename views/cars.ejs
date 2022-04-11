@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autos</title>
+  </head>
+  <body>
+    <script>
+      function findall() {
+        fetch('http://localhost:3000/cars/all', {
+          method: 'GET',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function byLicense() {
+        const value = document.getElementById('license').value;
+        const url = 'http://localhost:3000/cars/license/' + value;
+        fetch(url, {
+          method: 'GET',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function byUser() {
+        const value = document.getElementById('user').value;
+        const url = 'http://localhost:3000/cars/user/' + value;
+        fetch(url, {
+          method: 'GET',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function byYear() {
+        const value = document.getElementById('year').value;
+        const url = 'http://localhost:3000/cars/year/' + value;
+        fetch(url, {
+          method: 'GET',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function byYearBetween() {
+        const valuemin = document.getElementById('yearbetweenmin').value;
+        const valuemax = document.getElementById('yearbetweenmax').value;
+        const url =
+          'http://localhost:3000/cars/between/' + valuemin + '/' + valuemax;
+        fetch(url, {
+          method: 'GET',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function byDisplacement() {
+        const value = document.getElementById('displacement').value;
+        const url = 'http://localhost:3000/cars/displacement/' + value;
+        fetch(url, {
+          method: 'GET',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+
+      function addAuto() {
+        const auto = {
+          license: document.getElementById('addlicense').value,
+          brand: document.getElementById('addbrand').value,
+          model: document.getElementById('addmodel').value,
+          year: document.getElementById('addyear').value,
+          kilometers: document.getElementById('addkilometers').value,
+          motor: {
+            cylinders: document.getElementById('addcylinder').value,
+            displacement: document.getElementById('adddisplacement').value,
+            fuel: document.getElementById('addfuel').value,
+          },
+        };
+        fetch('http://localhost:3000/cars', {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+          body: JSON.stringify(auto),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function delCar() {
+        const value = document.getElementById('delbylicense').value;
+        const url = 'http://localhost:3000/cars/delete/' + value;
+        fetch(url, {
+          method: 'DELETE',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function updateCar() {
+        const auto = {
+          license: document.getElementById('addlicense').value,
+          brand: document.getElementById('addbrand').value,
+          model: document.getElementById('addmodel').value,
+          year: document.getElementById('addyear').value,
+          kilometers: document.getElementById('addkilometers').value,
+          motor: {
+            cylinders: document.getElementById('addcylinder').value,
+            displacement: document.getElementById('adddisplacement').value,
+            fuel: document.getElementById('addfuel').value,
+          },
+        };
+        const value = document.getElementById('updatelicense').value;
+        const url = 'http://localhost:3000/cars/update/' + value;
+        fetch(url, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(auto),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function addFavorites() {
+        const auto = {
+          brand: document.getElementById('addbrand').value,
+          model: document.getElementById('addmodel').value,
+          year: document.getElementById('addyear').value,
+          motor: {
+            cylinders: document.getElementById('addcylinder').value,
+            displacement: document.getElementById('adddisplacement').value,
+            fuel: document.getElementById('addfuel').value,
+          },
+        };
+
+        const url = 'http://localhost:3000/users/favorites/';
+        fetch(url, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(auto),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function delCarByID() {
+        const value = document.getElementById('delbyid').value;
+        const url = 'http://localhost:3000/cars/deletebyid/' + value;
+        fetch(url, {
+          method: 'DELETE',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function updateCarByID() {
+        const auto = {
+          license: document.getElementById('addlicense').value,
+          brand: document.getElementById('addbrand').value,
+          model: document.getElementById('addmodel').value,
+          year: document.getElementById('addyear').value,
+          kilometers: document.getElementById('addkilometers').value,
+          motor: {
+            cylinders: document.getElementById('addcylinder').value,
+            displacement: document.getElementById('adddisplacement').value,
+            fuel: document.getElementById('addfuel').value,
+          },
+        };
+        const value = document.getElementById('updateid').value;
+        const url = 'http://localhost:3000/cars/updatebyid/' + value;
+        fetch(url, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(auto),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+      function updateCarByIDparams() {
+        const ID = document.getElementById('updateidparams').value;
+        const field = document.getElementById('field').value;
+        const newvalue = document.getElementById('newvalue').value;
+        const url =
+          'http://localhost:3000/cars/updatebyid/' +
+          ID +
+          '/' +
+          field +
+          '/' +
+          newvalue;
+        fetch(url, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+    </script>
+    <div id="info"></div>
+    <h1>autot</h1>
+    <div>
+      <button onclick="findall()">Hae kaikki</button>
+    </div>
+    <div>
+      <label for="license">Hae rekisterinumerolla</label>
+      <input type="text" name="license" id="license" onblur="byLicense()" />
+    </div>
+    <div>
+      <label for="user">Hae käyttäjänimellä</label>
+      <input type="text" name="user" id="user" onblur="byUser()" />
+    </div>
+    <div>
+      <label for="year">Hae vuosimallilla</label>
+      <input type="text" name="year" id="year" onblur="byYear()" />
+    </div>
+    <div>
+      <label for="yearbetweenmin">Hae vuosimallia väliltä</label>
+      <input type="text" name="yearbetweenmin" id="yearbetweenmin" />
+      <input
+        type="text"
+        name="yearbetweenmax"
+        id="yearbetweenmax"
+        onblur="byYearBetween()"
+      />
+    </div>
+    <div>
+      <label for="displacement">Hae moottorin koon perusteella</label>
+      <input
+        type="text"
+        name="displacement"
+        id="displacement"
+        onblur="byDisplacement()"
+      />
+    </div>
+    <div>
+      <h2>Lisää auto</h2>
+      <div>
+        <label for="addlicense">rekisterinumero</label>
+        <input type="text" name="addlicense" id="addlicense" />
+      </div>
+      <div>
+        <label for="addbrand">Merkki</label>
+        <input type="text" name="addbrand" id="addbrand" />
+      </div>
+      <div>
+        <label for="addmodel">Malli</label>
+        <input type="text" name="addmodel" id="addmodel" />
+      </div>
+      <div>
+        <label for="addyear">Vuosimalli</label>
+        <input type="text" name="addyear" id="addyear" />
+      </div>
+      <div>
+        <label for="addkilometers">kilometrit</label>
+        <input type="text" name="addkilometers" id="addkilometers" />
+      </div>
+      <div>
+        <label for="addcylinder">Sylinterien määrä</label>
+        <input type="text" name="addcylinder" id="addcylinder" />
+      </div>
+      <div>
+        <label for="adddisplacement">Moottorin tilavuus</label>
+        <input type="text" name="adddisplacement" id="adddisplacement" />
+      </div>
+      <div>
+        <label for="addfuel">polttoaineen tyyppi</label>
+        <input type="text" name="addfuel" id="addfuel" />
+      </div>
+      <button onclick="addAuto()">Lisää auto</button>
+
+      <div>
+        <label for="updatelicense"
+          >Päivitä auton tietoja rekisterinumerolla</label
+        >
+        <input type="text" name="updatelicense" id="updatelicense" />
+        <button onclick="updateCar()">Päivitä auton tietoja</button>
+      </div>
+      <div>
+        <label for="updateid">Päivitä auton tietoja id:llä</label>
+        <input type="text" name="updateid" id="updateid" />
+        <button onclick="updateCarByID()">Päivitä auton tietoja</button>
+      </div>
+      <div>
+        <label for="updateidparams">Päivitä auton yhtä riviä id:llä</label>
+        <input type="text" name="updateidparams" id="updateidparams" />
+        <input type="text" name="field" id="field" />
+        <input type="text" name="newvalue" id="newvalue" />
+        <button onclick="updateCarByIDparams()">Päivitä auton tietoja</button>
+      </div>
+      <div>
+        <h3>Lisää suosikkeihin</h3>
+        <button onclick="addFavorites()">Lisää suosikkeihin</button>
+      </div>
+    </div>
+    <h2>poista auto</h2>
+    <div>
+      <label for="delbylicense">Poista auto rekisterinumeron perusteella</label>
+      <input
+        type="text"
+        name="delbylicense"
+        id="delbylicense"
+        onblur="delCar()"
+      />
+    </div>
+    <div>
+      <label for="delbyid">Poista auto id:n perusteella perusteella</label>
+      <input type="text" name="delbyid" id="delbyid" onblur="delCarByID()" />
+    </div>
+    <a href="/">Etusivulle</a>
+  </body>
+</html>

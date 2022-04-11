@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <script>
+      function findUser() {
+        const username = document.getElementById('finduser').value;
+        window.location.href = '/users/find/' + username;
+      }
+      function deleteAccount() {
+        fetch('http://localhost:3000/users/', {
+          method: 'DELETE',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.body.innerHTML = JSON.stringify(data);
+          });
+      }
+      function logout() {
+        fetch('http://localhost:3000/users/logout', {
+          method: 'GET',
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            document.getElementById('info').innerHTML = JSON.stringify(data);
+          });
+      }
+    </script>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div id="info"></div>
+    <div>
+      <a href="/cars">autot</a>
+    </div>
+    <div>
+      <a href="/admins">admin</a>
+    </div>
+    <div>
+      <a href="/users/login">kirjaudu sisään</a>
+    </div>
+    <div>
+      <a href="/users/register">rekisteröidy</a>
+    </div>
+    <div>
+      <button onclick="logout()">Kirjaudu ulos</button>
+    </div>
+    <div>
+      <label for="finduser">Etsi käyttäjää</label>
+      <input type="text" name="finduser" id="finduser" />
+      <button onclick="findUser()">etsi</button>
+    </div>
+    <div>
+      <button onclick="deleteAccount()">delete my account</button>
+    </div>
+  </body>
+</html>
