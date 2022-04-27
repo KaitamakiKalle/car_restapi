@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 // Kaikkien autojen haku
-router.get('/all', Token.verifyToken, autoController.findAll);
+router.get('/all', autoController.findAll);
 // Auton haku rekisterinumeron perusteella
 router.get('/license/:license', autoController.findByLicense);
 // Auton haku id:n perusteella
